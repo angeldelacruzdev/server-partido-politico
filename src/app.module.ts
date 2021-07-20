@@ -4,10 +4,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { ElectoresModule } from './electores/electores.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/partido'),
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development'],
+    }),
+    MongooseModule.forRoot(process.env.DATABASE_HOST),
     UsuariosModule,
     ElectoresModule,
   ],
